@@ -1,6 +1,6 @@
 arch:
   - amd64
-  - arm64
+  # arm64 # fails to chroot
 
 before_install:
   - sudo apt-get install -y debootstrap qemu-user-static
@@ -12,5 +12,15 @@ before_install:
 script:
   - sudo chroot rootfs bash -c "apt-get -y install casper"
   - sudo cat rootfs/etc/ssh/sshd_config
+  - sudo cat rootfs/etc/apt/sources.list
   - sudo mksquashfs rootfs filesystem.squashfs
   - ls -lh
+
+after_success:
+  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  - bash upload.sh filesystem.squashfs
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous.*)$/
