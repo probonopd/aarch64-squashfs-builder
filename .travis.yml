@@ -5,8 +5,8 @@ arch:
 before_install:
   - sudo apt-get install -y debootstrap qemu-user-static
   # Could also use --arch armhf for 32-bit
-  - cp /usr/bin/qemu-aarch64-static rootfs/usr/bin/ # Not needed if we run this on an arm64 runner
   - sudo debootstrap --arch arm64 --foreign --include=casper jessie rootfs http://sfo-korg-mirror.kernel.org/debian
+  - sudo cp /usr/bin/qemu-aarch64-static rootfs/usr/bin/ # Not needed if we run this on an arm64 runner
   - sudo chroot rootfs /debootstrap/debootstrap --second-stage
 
 script:
