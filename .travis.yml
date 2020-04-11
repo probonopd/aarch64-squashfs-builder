@@ -1,6 +1,9 @@
 arch:
   - amd64
 
+before_install:
+  - sudo apt-get install -y qemu-user-static debootstrap 
+
 script:
   - sudo debootstrap --arch armhf --foreign --include=g++,git,make,cmake,liblog4cpp5-dev,liblivemedia-dev,libasound2-dev jessie rootfs http://sfo-korg-mirror.kernel.org/debian
   - sudo chroot rootfs /debootstrap/debootstrap --second-stage
