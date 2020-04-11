@@ -16,12 +16,12 @@ It is possible to convert such a system into a squashfs-based Live system by boo
 
 ```
 sudo apt-get update
-sudo apt-get -y install live-boot
+sudo apt-get -y install casper
 
 sudo nano /boot/uEnv.txt
 
 # Edit like so:
-APPEND=boot=live live-boot-path=/live union=overlay  ...
+APPEND=boot=casper union=overlay  ...
 ```
 
 then making a squashfs out of the `<ROOTFS>` partition and putting it into `<ROOTFS>/live/filesystem.squashfs` using another computer. (The rest of `<ROOTFS>/`, except `boot` and `live`, may then be deleted.)
