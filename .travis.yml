@@ -23,7 +23,8 @@ script:
   - sudo cp /etc/hosts rootfs/etc/
   - sudo rm -rf rootfs/etc/resolv.conf || true
   - sudo cp /etc/resolv.conf rootfs/etc/
-  - sudo chroot rootfs bash -c "apt-get -y install casper"
+  - sudo chroot rootfs bash -c "apt-get -y install casper initramfs-tools"
+  - sudo chroot rootfs bash -c "update-initramfs -c -k all" || true
   - sudo chroot rootfs bash -c "update-initramfs.distrib -c -k all" || true
   - sudo cat rootfs/etc/ssh/sshd_config || true
   - sudo cat rootfs/etc/apt/sources.list
