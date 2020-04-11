@@ -23,19 +23,18 @@ script:
   - sudo cp /etc/hosts rootfs/etc/
   - sudo rm -rf rootfs/etc/resolv.conf || true
   - sudo cp /etc/resolv.conf rootfs/etc/
-  - sudo chroot rootfs bash -c "apt-get -y install live-boot" || true
+  - sudo chroot rootfs bash -c "apt-get -y install live-boot && update-initramfs.distrib -c -k all" || true
   - sudo cat rootfs/etc/ssh/sshd_config || true
   - sudo cat rootfs/etc/apt/sources.list
   - sudo umount -lfr rootfs/proc
   - sudo umount -lfr rootfs/sys
   - sudo umount -lfr rootfs/dev
-  - sudo cp rootfs/boot/initrd.img-* . || true # This does not work yet?
   - sudo mksquashfs rootfs filesystem.squashfs
   - ls -lh
 
 after_success:
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-  - bash upload.sh filesystem.squashfs
+  - bash upload.sh filesystem.squashfs rootfs/boot/initrd.img-*
 
 branches:
   except:
