@@ -5,8 +5,11 @@ arch:
 before_install:
   - sudo apt-get install -y debootstrap qemu-user-static
   # Could also use --arch armhf for 32-bit
-  - sudo debootstrap --arch arm64 --foreign --include=casper,openssh-server focal rootfs http://ports.ubuntu.com/
+  - sudo debootstrap --arch arm64 --foreign focal rootfs http://ports.ubuntu.com/
   - sudo cp /usr/bin/qemu-aarch64-static rootfs/usr/bin/ # Not needed if we run this on an arm64 runner
+  - sudo chroot rootfs /debootstrap/debootstrap --second-stage
+
+script:
   - sudo mount --rbind /sys rootfs/sys
   - sudo mount --rbind /dev rootfs/dev
   - sudo mount -t proc none rootfs/proc
@@ -14,10 +17,7 @@ before_install:
   - sudo cp /etc/hosts rootfs/etc/
   - sudo rm -rf rootfs/etc/resolv.conf || true
   - sudo cp /etc/resolv.conf rootfs/etc/
-  - sudo chroot rootfs /debootstrap/debootstrap --second-stage
-
-script:
-  - sudo chroot rootfs bash -c "apt-get -y install casper"
+  - sudo chroot rootfs bash -c "apt-get -y install casper openssh-server" || true
   - sudo cat rootfs/etc/ssh/sshd_config
   - sudo cat rootfs/etc/apt/sources.list
   - sudo umount -lfr rootfs/proc
