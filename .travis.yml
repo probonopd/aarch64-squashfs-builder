@@ -10,6 +10,12 @@ before_install:
   - sudo chroot rootfs /debootstrap/debootstrap --second-stage
 
 script:
+  - mkdir -p rootfs/lib/modules
+  - cd rootfs/lib/modules
+  - wget https://github.com/probonopd/aarch64-squashfs-builder/releases/download/boot/5.6.2-arm-64.zip
+  - unzip *.zip && rm *.zip
+  - cd -
+  - sudo chown -R root rootfs/lib/modules
   - sudo mount --rbind /sys rootfs/sys
   - sudo mount --rbind /dev rootfs/dev
   - sudo mount -t proc none rootfs/proc
@@ -17,13 +23,13 @@ script:
   - sudo cp /etc/hosts rootfs/etc/
   - sudo rm -rf rootfs/etc/resolv.conf || true
   - sudo cp /etc/resolv.conf rootfs/etc/
-  - sudo chroot rootfs bash -c "apt-get -y install casper openssh-server" || true
+  - sudo chroot rootfs bash -c "apt-get -y install live-boot" || true
   - sudo cat rootfs/etc/ssh/sshd_config
   - sudo cat rootfs/etc/apt/sources.list
   - sudo umount -lfr rootfs/proc
   - sudo umount -lfr rootfs/sys
   - sudo umount -lfr rootfs/dev
-  - sudo cp rootfs/boot/initrd.img-* .
+  - sudo cp rootfs/boot/initrd.img-* . || true # This does not work yet?
   - sudo mksquashfs rootfs filesystem.squashfs
   - ls -lh
 
