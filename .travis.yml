@@ -7,18 +7,29 @@ before_install:
   # Could also use --arch armhf for 32-bit
   - sudo debootstrap --arch arm64 --foreign --include=casper,openssh-server focal rootfs http://ports.ubuntu.com/
   - sudo cp /usr/bin/qemu-aarch64-static rootfs/usr/bin/ # Not needed if we run this on an arm64 runner
+  - sudo mount --rbind /sys rootfs/sys
+  - sudo mount --rbind /dev rootfs/dev
+  - sudo mount -t proc none rootfs/proc
+  - sudo mount -o bind /run/ rootfs/run
+  - sudo cp /etc/hosts rootfs/etc/
+  - sudo rm -rf rootfs/etc/resolv.conf || true
+  - sudo cp /etc/resolv.conf rootfs/etc/
   - sudo chroot rootfs /debootstrap/debootstrap --second-stage
 
 script:
   - sudo chroot rootfs bash -c "apt-get -y install casper"
   - sudo cat rootfs/etc/ssh/sshd_config
   - sudo cat rootfs/etc/apt/sources.list
+  - sudo umount -lfr rootfs/proc
+  - sudo umount -lfr rootfs/sys
+  - sudo umount -lfr rootfs/dev
+  - sudo cp rootfs/boot/initrd.img-* .
   - sudo mksquashfs rootfs filesystem.squashfs
   - ls -lh
 
 after_success:
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-  - bash upload.sh filesystem.squashfs
+  - bash upload.sh filesystem.squashfs initrd.img-*
 
 branches:
   except:
