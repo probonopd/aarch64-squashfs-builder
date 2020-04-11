@@ -1,9 +1,15 @@
 arch:
   - amd64
+  - arm64
 
 before_install:
-  - sudo apt-get install -y debootstrap 
+  - sudo apt-get install -y debootstrap qemu-user-static
+  # Could also use --arch armhf for 32-bit
+  - cp /usr/bin/qemu-aarch64-static rootfs/usr/bin/ # Not needed if we run this on an arm64 runner
+  - sudo debootstrap --arch arm64 --foreign --include=casper jessie rootfs http://sfo-korg-mirror.kernel.org/debian
+  - sudo chroot rootfs /debootstrap/debootstrap --second-stage
 
 script:
-  - sudo debootstrap --arch armhf --foreign --include=g++,git,make,cmake,liblog4cpp5-dev,liblivemedia-dev,libasound2-dev jessie rootfs http://sfo-korg-mirror.kernel.org/debian
-  - sudo chroot rootfs /debootstrap/debootstrap --second-stage
+  - sudo chroot rootfs bash -c "apt-get -y install casper"
+  - mksquashfs rootfs filesystem.squashfs
+  - ls -lh
