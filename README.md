@@ -27,3 +27,4 @@ APPEND=boot=casper union=overlay  ...
 then making a squashfs out of the `<ROOTFS>` partition and putting it into `<ROOTFS>/live/filesystem.squashfs` using another computer. (The rest of `<ROOTFS>/`, except `boot` and `live`, may then be deleted.)
 
 This repository is an attempt to build a suitable `filesystem.squashfs` file "bottom-up" using `debootstrap`.
+Also see http://linux-sunxi.org/Debootstrap#First_stage.
