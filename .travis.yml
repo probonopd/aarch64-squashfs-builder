@@ -24,7 +24,7 @@ script:
   - sudo rm -rf rootfs/etc/resolv.conf || true
   - sudo cp /etc/resolv.conf rootfs/etc/
   - sudo chroot rootfs bash -c "apt-get -y install live-boot" || true
-  - sudo cat rootfs/etc/ssh/sshd_config
+  - sudo cat rootfs/etc/ssh/sshd_config || true
   - sudo cat rootfs/etc/apt/sources.list
   - sudo umount -lfr rootfs/proc
   - sudo umount -lfr rootfs/sys
