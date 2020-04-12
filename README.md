@@ -55,7 +55,8 @@ Use the correct dtb for your board.
 
 ## TODO
 
-* Check the customizations in https://github.com/drtyhlpr/rpi23-gen-image
+* Get Xorg to work (as it does in balbes150 Armbian)
+* Check the customizations in https://github.com/drtyhlpr/rpi23-gen-image and https://github.com/150balbes/Build-Armbian/blob/master/lib/distributions.sh
 
 ## Acknowlegdments
 
