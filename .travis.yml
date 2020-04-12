@@ -19,6 +19,8 @@ script:
   - sudo unzip *.zip && sudo rm *.zip
   - cd -
   - sudo mkdir -p rootfs/lib/modules
+  - sudo ls -lh rootfs/lib/modules
+  - sudo rm -rf rootfs/lib/modules/* # Make sure that there were no previous kernel modules there as we bring our own for now; TODO: Use Ubuntu's kernel and modules?
   - cd rootfs/lib/modules
   - sudo wget https://github.com/probonopd/aarch64-squashfs-builder/releases/download/boot/5.6.2-arm-64.zip
   - sudo unzip *.zip && sudo rm *.zip
@@ -37,7 +39,7 @@ script:
   - sudo ls -lh rootfs/usr/share/initramfs-tools/scripts/
   - sudo rm rootfs/boot/initrd.img-* # Just to be sure that we get a rebuilt one
   # sudo chroot rootfs bash -c "update-initramfs -v -c -k all" || true # Says "Nothing to do."
-  - sudo chroot rootfs bash -c "mkinitramfs -o /boot/initrd.img-5.6.2-arm-64" # $(ls /lib/modules/ | head -n 1) did strange things?
+  - sudo chroot rootfs bash -c "mkinitramfs -o /boot/initrd.img-$(ls /lib/modules/ | head -n 1)"
   - sudo mkimage -A arm64 -T ramdisk -C gzip -n uInitrd -d rootfs/boot/initrd.img-* uInitrd
   - sudo mv rootfs/boot/initrd.img-* .
   - sudo rm -rf rootfs/boot/*
