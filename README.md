@@ -1,6 +1,6 @@
 # aarch64-squashfs-builder [![Build Status](https://travis-ci.com/probonopd/aarch64-squashfs-builder.svg?branch=master)](https://travis-ci.com/probonopd/aarch64-squashfs-builder)
 
-Trying to build squashfs images for aarch64 that can be booted on Amlogic devices using the mainline kernel.
+Build squashfs images for aarch64 that can be booted on Amlogic devices using the mainline kernel.
 
 ## Turning normal Ubuntu installations into squashfs based Live systems
 
@@ -33,8 +33,25 @@ It should be possible to turn a Live system into a regular system by reversing t
 
 The Armbian project seems not to be open to support TV boxes nor the mainline Amlogic kernel work nor the balbes150 work. So it may be better to build images from Ubuntu/Debian packages "from the ground up".
 
-This repository is an attempt to build a suitable `filesystem.squashfs` file "bottom-up" using `debootstrap`.
+This repository builds a suitable `filesystem.squashfs` file "bottom-up" using `debootstrap`.
 Also see http://linux-sunxi.org/Debootstrap#First_stage.
+
+## How to use
+
+* For now, burn https://forum.armbian.com/topic/12162-single-armbian-image-for-rk-aml-aw/, expecially as of April 2020 https://yadi.sk/d/_rQgn_FosYuW0g/20.05.1/20200408 with the 5.6.2 mainline kernel to SD card
+* Boot the system once, it will resize the ROOT partition.
+* Delete the contents of the ROOT partition
+* Create `/boot` and `/casper` on the ROOT partition
+* Copy `filesystem.squashfs` to the `<ROOT partition>/casper/filesystem.squashfs`
+* Copy `uImage` and `initramfs-*` to `<BOOT partition>`, replacing what was there before
+* Edit `<BOOT partition>/uEnv.txt` so that it contains
+
+```
+FDT=/dtb/amlogic/meson-gxl-s905x-p212.dtb
+APPEND=boot=casper union=overlay rw ... selinux=0
+```
+
+Use the correct dtb for your board.
 
 ## TODO
 
