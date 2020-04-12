@@ -35,9 +35,9 @@ script:
   - sudo chroot rootfs bash -c "locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8" || true # https://debianforum.de/forum/viewtopic.php?t=155403
   - sudo chroot rootfs bash -c "apt-get -y install casper initramfs-tools"
   - sudo ls -lh rootfs/usr/share/initramfs-tools/scripts/
-  - sudo rm rootfs/boot/initrd.img-* # So that the next line does something
-  - sudo chroot rootfs bash -c "mkinitramfs -o /boot/initrd.img-$(ls /lib/modules/ | head -n 1)"
+  - sudo rm rootfs/boot/initrd.img-* # Just to be sure that we get a rebuilt one
   # sudo chroot rootfs bash -c "update-initramfs -v -c -k all" || true # Says "Nothing to do."
+  - sudo chroot rootfs bash -c "mkinitramfs -o /boot/initrd.img-5.6.2-arm-64" # $(ls /lib/modules/ | head -n 1) did strange things?
   - sudo mkimage -A arm64 -T ramdisk -C gzip -n uInitrd -d rootfs/boot/initrd.img-* uInitrd
   - sudo mv rootfs/boot/initrd.img-* .
   - sudo rm -rf rootfs/boot/*
