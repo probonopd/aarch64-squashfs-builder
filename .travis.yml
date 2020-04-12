@@ -50,6 +50,7 @@ script:
   - sudo umount -lfr rootfs/proc
   - sudo umount -lfr rootfs/sys
   - sudo umount -lfr rootfs/dev
+  - ( cd rootfs/etc ; sudo rm resolv.conf ; sudo ln -s ../run/systemd/resolve/stub-resolv.conf resolv.conf )
   - sudo mksquashfs rootfs filesystem.squashfs
   - ls -lh
 
