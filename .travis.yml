@@ -36,7 +36,7 @@ script:
   - sudo sed -i -e 's|main|main multiverse restricted universe|g' rootfs/etc/apt/sources.list # Otherwise cannot install xubuntu-desktop
   - sudo chroot rootfs bash -c "apt-get update && apt-get -y install locales"
   - sudo chroot rootfs bash -c "locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8" || true # https://debianforum.de/forum/viewtopic.php?t=155403
-  - sudo chroot rootfs bash -c "apt-get -y install casper initramfs-tools xubuntu-desktop"
+  - sudo chroot rootfs bash -c "apt-get -y install casper initramfs-tools lubuntu-desktop"
   - sudo ls -lh rootfs/usr/share/initramfs-tools/scripts/
   - sudo rm rootfs/boot/initrd.img-* # Just to be sure that we get a rebuilt one
   # sudo chroot rootfs bash -c "update-initramfs -v -c -k all" || true # Says "Nothing to do."
