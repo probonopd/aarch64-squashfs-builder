@@ -3,7 +3,7 @@ arch:
   # arm64 # fails to chroot
 
 before_install:
-  - sudo apt-get install -y debootstrap qemu-user-static
+  - sudo apt-get install -y debootstrap qemu-user-static u-boot-tools
   # Could also use --arch armhf for 32-bit
   - sudo debootstrap --arch arm64 --foreign focal rootfs http://ports.ubuntu.com/
   - sudo cp /usr/bin/qemu-aarch64-static rootfs/usr/bin/ # Not needed if we run this on an arm64 runner
@@ -31,7 +31,10 @@ script:
   - sudo chroot rootfs bash -c "apt-get -y install locales"
   - sudo chroot rootfs bash -c "locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8" || true # https://debianforum.de/forum/viewtopic.php?t=155403
   - sudo chroot rootfs bash -c "apt-get -y install casper initramfs-tools"
-  - sudo chroot rootfs bash -c "update-initramfs -v -c -k 5.6.2-arm-64" || true
+  - sudo chroot rootfs bash -c "update-initramfs -v -c -k all" || true
+  - sudo mkimage -A arm -T ramdisk -C gzip -n uInitrd -d rootfs/boot/initramfs-*.img uInitrd
+  - sudo mv rootfs/boot/initrd.img-* .
+  - sudo rm -rf rootfs/boot/*
   - sudo chroot rootfs bash -c "apt-get -y clean" || true
   - sudo cat rootfs/etc/ssh/sshd_config || true
   - sudo cat rootfs/etc/apt/sources.list
@@ -43,7 +46,7 @@ script:
 
 after_success:
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-  - bash upload.sh filesystem.squashfs rootfs/boot/initrd.img-*
+  - bash upload.sh filesystem.squashfs initrd.img-* uInitrd
 
 branches:
   except:
