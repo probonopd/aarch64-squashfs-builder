@@ -1,3 +1,6 @@
+sudo: require
+dist: xenial
+  
 arch:
   - amd64
   # arm64 # fails to chroot
