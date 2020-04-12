@@ -23,9 +23,9 @@ script:
   - sudo cp /etc/hosts rootfs/etc/
   - sudo rm -rf rootfs/etc/resolv.conf || true
   - sudo cp /etc/resolv.conf rootfs/etc/
-  - sudo chroot rootfs bash -c "apt-get -y install casper initramfs-tools locales"
-  - sudo chroot rootfs bash -c "locale-gen en_EN.UTF-8 && update-locale LANG=en_EN.UTF-8" || true # https://debianforum.de/forum/viewtopic.php?t=155403
-  - sudo chroot rootfs bash -c "update-locale LANG=en_EN.UTF-8" || true
+  - sudo chroot rootfs bash -c "locales"
+  - sudo chroot rootfs bash -c "locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8" || true # https://debianforum.de/forum/viewtopic.php?t=155403
+  - sudo chroot rootfs bash -c "apt-get -y install casper initramfs-tools"
   - sudo chroot rootfs bash -c "update-initramfs -c -k all" || true
   - sudo chroot rootfs bash -c "update-initramfs.distrib -c -k all" || true
   - sudo chroot rootfs bash -c "apt-get -y clean" || true
