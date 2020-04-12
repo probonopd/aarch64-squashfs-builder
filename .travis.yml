@@ -24,9 +24,10 @@ script:
   - sudo rm -rf rootfs/etc/resolv.conf || true
   - sudo cp /etc/resolv.conf rootfs/etc/
   - sudo chroot rootfs bash -c "apt-get -y install casper initramfs-tools locales"
-  - sudo chroot rootfs bash -c "update-locale LANG=en_US.UTF-8" || true
+  - sudo chroot rootfs bash -c "update-locale LANG=en_EN.UTF-8" || true
   - sudo chroot rootfs bash -c "update-initramfs -c -k all" || true
   - sudo chroot rootfs bash -c "update-initramfs.distrib -c -k all" || true
+  - sudo chroot rootfs bash -c "apt-get -y clean" || true
   - sudo cat rootfs/etc/ssh/sshd_config || true
   - sudo cat rootfs/etc/apt/sources.list
   - sudo umount -lfr rootfs/proc
