@@ -41,7 +41,7 @@ Also see http://linux-sunxi.org/Debootstrap#First_stage.
 * For now, burn https://forum.armbian.com/topic/12162-single-armbian-image-for-rk-aml-aw/, expecially as of April 2020 https://yadi.sk/d/_rQgn_FosYuW0g/20.05.1/20200408 with the 5.6.2 mainline kernel to SD card
 * Boot the system once, it will resize the ROOT partition.
 * Delete the contents of the ROOT partition
-* Create `/boot` and `/casper` on the ROOT partition
+* Create `/boot` and `/casper` on the ROOT partition (if you like you can also leave them there and switch into that system)
 * Copy `filesystem.squashfs` to the `<ROOT partition>/casper/filesystem.squashfs`
 * Copy `uImage` and `initramfs-*` to `<BOOT partition>`, replacing what was there before
 * Edit `<BOOT partition>/uEnv.txt` so that it contains
