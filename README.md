@@ -31,7 +31,7 @@ It should be possible to turn a Live system into a regular system by reversing t
 
 ## Creating the squashfs image from scratch
 
-The Armbian project seems not to be open to support TV boxes nor the mainline Amlogic kernel work nor the balbes150 work. So it may be better to build images from Ubuntu/Debian packages "from the ground up".
+The Armbian project seems not to be open to integrate native support for TV boxes nor the mainline Amlogic kernel work nor the work done by @balbes150 Oleg Ivanov. So it may be better to build images from Ubuntu/Debian packages "from the ground up".
 
 This repository builds a suitable `filesystem.squashfs` file "bottom-up" using `debootstrap`.
 Also see http://linux-sunxi.org/Debootstrap#First_stage.
@@ -57,6 +57,7 @@ Use the correct dtb for your board.
 
 * Get Xorg to work (as it does in @balbes150 Armbian by Oleg Ivanov)
 * Check the customizations in https://github.com/drtyhlpr/rpi23-gen-image and https://github.com/150balbes/Build-Armbian/blob/master/lib/distributions.sh
+* Check the issues tracker in this repository
 
 ## Acknowlegdments
 
