@@ -39,3 +39,9 @@ Also see http://linux-sunxi.org/Debootstrap#First_stage.
 ## TODO
 
 * Check the customizations in https://github.com/drtyhlpr/rpi23-gen-image
+
+## Acknowlegdments
+
+* Linux for Amlogic Meson http://linux-meson.com/doku.php (mainline kernel for Amlogic SOCs)
+* Linux for ARM development boards https://www.armbian.com/ (non-profit initiative; naming somewhat misleading, it is not a Debian project)
+* @balbes150 https://forum.armbian.com/topic/12162-single-armbian-image-for-rk-aml-aw/
