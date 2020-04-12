@@ -28,3 +28,7 @@ then making a squashfs out of the `<ROOTFS>` partition and putting it into `<ROO
 
 This repository is an attempt to build a suitable `filesystem.squashfs` file "bottom-up" using `debootstrap`.
 Also see http://linux-sunxi.org/Debootstrap#First_stage.
+
+## TODO
+
+* Check the customizations in https://github.com/drtyhlpr/rpi23-gen-image
