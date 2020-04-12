@@ -59,7 +59,7 @@ Use the correct dtb for your board.
 * Check the customizations in https://github.com/drtyhlpr/rpi23-gen-image and https://github.com/150balbes/Build-Armbian/blob/master/lib/distributions.sh
 * Check the issues tracker in this repository
 
-## Acknowlegdments
+## Acknowledgments
 
 * Linux for Amlogic Meson http://linux-meson.com/doku.php (mainline kernel for Amlogic SOCs)
 * Linux for ARM development boards https://www.armbian.com/ (non-profit initiative; naming somewhat misleading, it is not a Debian project)
