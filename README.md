@@ -27,6 +27,8 @@ APPEND=boot=casper union=overlay  ...
 
 then making a squashfs out of the `<ROOTFS>` partition and putting it into `<ROOTFS>/live/filesystem.squashfs` using another computer. (The rest of `<ROOTFS>/`, except `boot` and `live`, may then be deleted.)
 
+It should be possible to turn a Live system into a regular system by reversing the action. It is even possible to have both a regular system and a live system on the same partition, and switch between them by just switching the `APPEND=` lines.
+
 ## Creating the squashfs image from scratch
 
 The Armbian project seems not to be open to support TV boxes nor the mainline Amlogic kernel work nor the balbes150 work. So it may be better to build images from Ubuntu/Debian packages "from the ground up".
