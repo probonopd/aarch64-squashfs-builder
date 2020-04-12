@@ -32,7 +32,7 @@ script:
   - sudo chroot rootfs bash -c "locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8" || true # https://debianforum.de/forum/viewtopic.php?t=155403
   - sudo chroot rootfs bash -c "apt-get -y install casper initramfs-tools"
   - sudo chroot rootfs bash -c "update-initramfs -v -c -k all" || true
-  - sudo mkimage -A arm -T ramdisk -C gzip -n uInitrd -d rootfs/boot/initramfs-*.img uInitrd
+  - sudo mkimage -A arm -T ramdisk -C gzip -n uInitrd -d rootfs/boot/initrd-*.img uInitrd
   - sudo mv rootfs/boot/initrd.img-* .
   - sudo rm -rf rootfs/boot/*
   - sudo chroot rootfs bash -c "apt-get -y clean" || true
