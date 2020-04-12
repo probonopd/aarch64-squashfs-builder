@@ -1,6 +1,6 @@
 # aarch64-squashfs-builder [![Build Status](https://travis-ci.com/probonopd/aarch64-squashfs-builder.svg?branch=master)](https://travis-ci.com/probonopd/aarch64-squashfs-builder)
 
-Build squashfs images for aarch64 that can be booted on Amlogic devices using the mainline kernel.
+Build squashfs images for aarch64 that can be booted on Amlogic (and potentially some Allwinner and Rockchip) devices using the mainline kernel.
 
 ## Turning normal Ubuntu installations into squashfs based Live systems
 
