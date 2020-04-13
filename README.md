@@ -22,7 +22,7 @@ sudo apt-get -y install casper
 sudo nano /boot/uEnv.txt
 
 # Edit like so:
-APPEND=boot=casper union=overlay  ...
+APPEND=boot=casper ... selinux=0 apparmor=0
 ```
 
 then making a squashfs out of the `<ROOTFS>` partition and putting it into `<ROOTFS>/live/filesystem.squashfs` using another computer. (The rest of `<ROOTFS>/`, except `boot` and `live`, may then be deleted.)
