@@ -10,7 +10,7 @@ Edit `<BOOT partition>/uEnv.txt` like this:
 
 ```
 FDT=/dtb/amlogic/meson-gxl-s905x-p212.dtb
-APPEND= ... selinux=0
+APPEND= ... selinux=0 apparmor=0
 ```
 
 It is possible to convert such a system into a squashfs-based Live system by booting into it, and running
